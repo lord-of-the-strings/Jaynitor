@@ -1,3 +1,5 @@
+"""Calculates system storage stats"""
+
 import shutil
 
 

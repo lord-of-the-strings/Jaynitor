@@ -1,3 +1,5 @@
+"""Creates the dashboard in Textual"""
+
 import asyncio
 from textual.app import App, ComposeResult
 from textual.widgets import Header, Footer, Checkbox, ProgressBar, Label
@@ -6,6 +8,8 @@ from utils.storage import calculate
 
 
 class JaynitorTUI(App):
+    """Class that defines the TUI app"""
+
     CSS = """
     Screen {
         background: #1a1b26;
@@ -102,7 +106,6 @@ class JaynitorTUI(App):
                     "┌─ Cleanable Sources ───────────────────────────────────────────────────┐",
                     classes="panel-title",
                 )
-                1
                 with Horizontal(classes="source-row"):
                     yield Checkbox("Pacman Cache (/var/cache/pacman/pkg)", value=False)
                     yield Label("[Pending Scan]", classes="status-lbl")
