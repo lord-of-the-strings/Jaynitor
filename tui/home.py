@@ -1,8 +1,8 @@
+import asyncio
 from textual.app import App, ComposeResult
 from textual.widgets import Header, Footer, Checkbox, ProgressBar, Label
 from textual.containers import Vertical, Horizontal
 from utils.storage import calculate
-import asyncio
 
 
 class JaynitorTUI(App):
@@ -75,6 +75,7 @@ class JaynitorTUI(App):
     ]
 
     def compose(self) -> ComposeResult:
+        """Textual compose function with widgets"""
         yield Header(show_clock=False)
 
         with Vertical(id="main_layout"):
@@ -132,11 +133,13 @@ class JaynitorTUI(App):
         yield Footer()
 
     def on_mount(self) -> None:
+        """Textual on_mount function with initial processes"""
         self.title = "Jaynitor v0.1 [Target: /]"
         self.sub_title = "[Host: archlinux]"
         self.run_worker(self.fetch_storage(), exclusive=True)
 
     async def fetch_storage(self) -> None:
+        """Function to fetch storage info"""
         loop = asyncio.get_running_loop()
         data = await loop.run_in_executor(None, calculate)
         self.query_one(ProgressBar).progress = data["percentage"]

@@ -2,6 +2,7 @@ import shutil
 
 
 def calculate():
+    """Function to calculate system storage stats"""
     total, used, free = shutil.disk_usage("/")
     gb = 1024**3
     total_gb = total // gb
