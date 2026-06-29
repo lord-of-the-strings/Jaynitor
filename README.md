@@ -33,11 +33,7 @@ implementation as initially researched by the author @lord-of-the-strings.
 ### 3. HARD
 Audit and verify AUR packages against supply chain risks
 
-**NOTE**: This project is under development. Your contributions are welcome. Fork this repo, check the scripts in 
+**NOTE**: This project is under active development. Your contributions are welcome. Fork this repo, check the scripts in 
 utils/ and the commented Textual code in tui/, and open a PR today! All PRs will be merged after thorough
 verification, please ensure that the final code does not cause a problem of any kind including aesthetic
 in a custom RICEd Hyprland-on-Archlinux setup.
-
-The author requests you to not:
-1. Forward offensive comments or warn about a small user base
-2. Post about this project in a public forum before completion
