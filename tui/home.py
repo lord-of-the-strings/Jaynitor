@@ -1,12 +1,11 @@
-from textual import on
-from textual.worker import Worker, WorkerState
 from textual.app import App, ComposeResult
 from textual.widgets import Header, Footer, Checkbox, ProgressBar, Label
-from textual.containers import Vertical, Horizontal, Container
+from textual.containers import Vertical, Horizontal
 from utils.storage import calculate
 import asyncio
-class JaynitorTUI(App):
 
+
+class JaynitorTUI(App):
     CSS = """
     Screen {
         background: #1a1b26;
@@ -77,18 +76,31 @@ class JaynitorTUI(App):
 
     def compose(self) -> ComposeResult:
         yield Header(show_clock=False)
-        
+
         with Vertical(id="main_layout"):
             #  Storage Overview Component Structure
             with Vertical(classes="panel-container"):
-                yield Label("┌─ Storage Overview ────────────────────────────────────────────────────┐", classes="panel-title")
-                yield Label("Total: -- GB │ Used: -- GB (-- %) │ Free: -- GB", classes="panel-body-text", id="storage_lbl")
+                yield Label(
+                    "┌─ Storage Overview ────────────────────────────────────────────────────┐",
+                    classes="panel-title",
+                )
+                yield Label(
+                    "Total: -- GB │ Used: -- GB (-- %) │ Free: -- GB",
+                    classes="panel-body-text",
+                    id="storage_lbl",
+                )
                 yield ProgressBar(total=100, show_percentage=False, show_eta=False)
-                yield Label("└───────────────────────────────────────────────────────────────────────┘", classes="panel-title")
-            
+                yield Label(
+                    "└───────────────────────────────────────────────────────────────────────┘",
+                    classes="panel-title",
+                )
+
             #  Cleanable Sources Checkbox List Structure
             with Vertical(classes="panel-container"):
-                yield Label("┌─ Cleanable Sources ───────────────────────────────────────────────────┐", classes="panel-title")
+                yield Label(
+                    "┌─ Cleanable Sources ───────────────────────────────────────────────────┐",
+                    classes="panel-title",
+                )
                 1
                 with Horizontal(classes="source-row"):
                     yield Checkbox("Pacman Cache (/var/cache/pacman/pkg)", value=False)
@@ -97,33 +109,39 @@ class JaynitorTUI(App):
                 with Horizontal(classes="source-row"):
                     yield Checkbox("Unused Orphan Packages (pacman -Qtdq)", value=False)
                     yield Label("[Pending Scan]", classes="status-lbl")
-                
+
                 with Horizontal(classes="source-row"):
                     yield Checkbox("User Cache (~/.cache)", value=False)
                     yield Label("[Pending Scan]", classes="status-lbl")
-                
+
                 with Horizontal(classes="source-row"):
-                    yield Checkbox("Systemd Journal Logs (/var/log/journal)", value=False)
+                    yield Checkbox(
+                        "Systemd Journal Logs (/var/log/journal)", value=False
+                    )
                     yield Label("[Pending Scan]", classes="status-lbl")
-                
+
                 with Horizontal(classes="source-row"):
                     yield Checkbox("Broken Symlinks", value=False)
                     yield Label("[Pending Scan]", classes="status-lbl")
-                    
-                yield Label("└───────────────────────────────────────────────────────────────────────┘", classes="panel-title")
-                    
+
+                yield Label(
+                    "└───────────────────────────────────────────────────────────────────────┘",
+                    classes="panel-title",
+                )
+
         yield Footer()
 
     def on_mount(self) -> None:
         self.title = "Jaynitor v0.1 [Target: /]"
         self.sub_title = "[Host: archlinux]"
-        self.run_worker(self.fetch_storage(),exclusive=True)
+        self.run_worker(self.fetch_storage(), exclusive=True)
 
     async def fetch_storage(self) -> None:
-        loop=asyncio.get_running_loop()
-        data=await loop.run_in_executor(None,calculate)
-        self.query_one(ProgressBar).progress=data['percentage']
-        self.query_one('#storage_lbl').update(data['ui'])
+        loop = asyncio.get_running_loop()
+        data = await loop.run_in_executor(None, calculate)
+        self.query_one(ProgressBar).progress = data["percentage"]
+        self.query_one("#storage_lbl").update(data["ui"])
+
 
 if __name__ == "__main__":
     app = JaynitorTUI()
