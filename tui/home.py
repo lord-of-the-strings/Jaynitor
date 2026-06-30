@@ -4,6 +4,7 @@ import asyncio
 from textual.app import App, ComposeResult
 from textual.widgets import Header, Footer, Checkbox, ProgressBar, Label
 from textual.containers import Vertical, Horizontal
+from tui.pacman import DetailScreen
 from utils.storage import calculate
 
 
@@ -105,12 +106,14 @@ class JaynitorTUI(App):
         ("▲/▼", "navigate", "Navigate"),
         ("space", "toggle", "Toggle Target"),
         ("a", "toggle_all", "Toggle All"),
-        ("s", "scan", "Start Scan"),
+        ("s", "show_secondary", "Start Scan"),
         ("t", "toggle_theme", "Toggle Theme"),
         ("tab", "switch", "Switch Panel"),
         ("?", "help", "Help"),
         ("q", "quit", "Quit"),
     ]
+
+    SCREENS = {"secondary": DetailScreen}
 
     def compose(self) -> ComposeResult:
         """Textual compose function with widgets"""
@@ -169,6 +172,10 @@ class JaynitorTUI(App):
         is_tokyo = self.screen.has_class("theme-tokyo")
         self.screen.set_class(not is_tokyo, "theme-tokyo")
         self.screen.set_class(is_tokyo, "theme-system")
+
+    def action_show_secondary(self) -> None:
+        """Action to push the secondary screen (mapped to 's)"""
+        self.push_screen("secondary")
 
     async def fetch_storage(self) -> None:
         """Function to fetch storage info"""
