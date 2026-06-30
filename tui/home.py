@@ -4,7 +4,7 @@ import asyncio
 from textual.app import App, ComposeResult
 from textual.widgets import Header, Footer, Checkbox, ProgressBar, Label
 from textual.containers import Vertical, Horizontal
-from tui.pacman import DetailScreen
+from tui.scan import DetailScreen
 from utils.storage import calculate
 
 
