@@ -14,14 +14,14 @@ disturbing the user's RICE. This addresses the need of visually stunning utiliti
 **Scope**: The scope and *effect* of Jaynitor has been planned in three phases named after their difficulty of
 implementation as initially researched by the author @lord-of-the-strings.
 
-### 1. EASY
+### 1. EASY (cache/tools exist)
 - pacman cache
 - orphan packages
 - AUR helper cache (yay/paru)
 - flatpak leftovers
 - Thumbnails cache
 
-### 2. MEDIUM
+### 2. MEDIUM (junk/logic required)
 - systemd journal logs
 - pacnew/pacsave files
 - stray configs
@@ -30,7 +30,7 @@ implementation as initially researched by the author @lord-of-the-strings.
 - unused apps
 - heavy unused files
 - duplicates
-### 3. HARD
+### 3. HARD (user protection)
 Audit and verify AUR packages against supply chain risks
 
 **NOTE**: This project is under active development. Your contributions are welcome. Fork this repo, check the scripts in 
