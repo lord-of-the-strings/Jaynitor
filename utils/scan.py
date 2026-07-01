@@ -42,8 +42,7 @@ async def clear_pacman():
         if p.returncode == 0:
             txt = stdout.decode().strip()
             return txt
-        else:
-            err = stderr.decode().strip()
-            return f"Error: {err}"
-    except Exception as e:
+        err = stderr.decode().strip()
+        return f"Error: {err}"
+    except Exception as e:  # pylint: disable=broad-exception-caught
         return str(e)
