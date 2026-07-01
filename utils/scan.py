@@ -1,5 +1,6 @@
 """Scanning utilities"""
 
+import asyncio
 import os
 
 
@@ -25,3 +26,24 @@ def scan_pacman():
                 else:
                     results[package_name] = f"{size} B"
     return results
+
+
+async def clear_pacman():
+    """Runs paccache"""
+    try:
+        p = await asyncio.create_subprocess_exec(
+            "sudo",
+            "paccache",
+            "-rk0",
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE,
+        )
+        stdout, stderr = await p.communicate()
+        if p.returncode == 0:
+            txt = stdout.decode().strip()
+            return txt
+        else:
+            err = stderr.decode().strip()
+            return f"Error: {err}"
+    except Exception as e:
+        return str(e)
